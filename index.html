@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade 7 Science: Understanding Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12355b;--sky:#2b8be0;--mint:#1f9d78;--amber:#f2b134;--coral:#d9482b;--bg:#eef3f8;--card:#fff;--line:#cfdbe8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#1b2733;font:17px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;color:var(--ink);line-height:1.15;margin:0 0 .5em}
+header{background:var(--ink);color:#fff;padding:28px 20px 24px}
+header h1{color:#fff;font-size:clamp(28px,5vw,44px);max-width:900px;margin:0 auto .3em}
+header p{max-width:900px;margin:0 auto;color:#cfe3f7}
+main{max-width:900px;margin:0 auto;padding:12px 16px 60px}
+section{background:var(--card);border:2px solid var(--line);border-left:10px solid var(--sky);border-radius:14px;padding:20px 22px;margin:22px 0}
+section.s2{border-left-color:var(--amber)}section.s3{border-left-color:var(--mint)}section.s4{border-left-color:var(--coral)}section.s5{border-left-color:var(--ink)}
+.note{background:#f3f8fd;border-radius:10px;padding:10px 14px;margin:10px 0}
+.row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+label{font-weight:700}
+input[type=text],input[type=date],input[type=number],textarea,select{font:inherit;padding:8px 10px;border:2px solid var(--line);border-radius:8px;width:100%;max-width:100%}
+input[type=range]{width:100%;accent-color:var(--sky)}
+textarea{min-height:80px}
+button{font:inherit;font-weight:700;background:var(--ink);color:#fff;border:0;border-radius:8px;padding:9px 16px;cursor:pointer}
+button.opt{background:#fff;color:var(--ink);border:2px solid var(--line);margin:3px 6px 3px 0}
+button.opt.right{background:#d8f3e9;border-color:var(--mint)}button.opt.wrong{background:#fde1da;border-color:var(--coral)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.q{border-top:1px dashed var(--line);padding:10px 0}
+.fb{display:block;font-size:15px;margin-top:4px}.fb.ok{color:var(--mint)}.fb.no{color:var(--coral)}
+.num{width:110px!important;display:inline-block;margin-right:6px}
+.big{font:800 26px "Bricolage Grotesque",sans-serif;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+svg{width:100%;height:auto;background:#f8fbfe;border-radius:10px}
+#status{font-weight:700;margin-top:10px}
+@media (prefers-reduced-motion:no-preference){#dot{transition:cx .3s}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Understanding Motion</h1>
+  <p>Grade 7 Science · Distance and displacement, speed and velocity, graphing motion, and variables. About 60 minutes.</p>
+</header>
+<main>
+
+<section id="who">
+  <h2>Who is learning today?</h2>
+  <div class="grid">
+    <div><label for="name">Name</label><input id="name" type="text" autocomplete="name"></div>
+    <div><label for="sec">Section</label><input id="sec" type="text"></div>
+    <div><label for="date">Date</label><input id="date" type="date"></div>
+  </div>
+  <div class="note"><b>Goals:</b> explain distance vs. displacement, tell speed from velocity, read distance-time graphs, and name the variables in an investigation.</div>
+</section>
+
+<section class="s1" id="p1">
+  <h2>1. Distance vs. displacement</h2>
+  <p><b>Distance</b> is the total length of the path (scalar). <b>Displacement</b> is the straight-line change in position from start to finish, with direction (vector).</p>
+  <div class="note"><b>Try it.</b> Home is at 0. East is to the right. Walk out to the park, then walk back toward home.</div>
+  <label for="out">Walk east: <span id="outv">6</span> km</label>
+  <input id="out" type="range" min="0" max="10" value="6">
+  <label for="back">Walk back west: <span id="backv">2</span> km</label>
+  <input id="back" type="range" min="0" max="6" value="2">
+  <svg viewBox="0 0 440 90" role="img" aria-label="Number line showing position">
+    <line x1="20" y1="50" x2="420" y2="50" stroke="#12355b" stroke-width="3"/>
+    <text x="14" y="78" font-size="13">Home 0</text><text x="385" y="78" font-size="13">10 km</text>
+    <line id="pathl" x1="20" y1="30" x2="20" y2="30" stroke="#f2b134" stroke-width="6"/>
+    <circle id="dot" cx="20" cy="50" r="11" fill="#2b8be0"/>
+  </svg>
+  <p>Distance = <span class="big" id="dist">8 km</span> &nbsp; Displacement = <span class="big" id="disp">4 km east</span></p>
+  <p class="note">Notice: when you return to where you started, distance keeps growing but displacement becomes 0.</p>
+  <h3>Practice</h3><div id="dd"></div>
+</section>
+
+<section class="s2" id="p2">
+  <h2>2. Speed vs. velocity</h2>
+  <p>Speed = distance ÷ time (scalar). Velocity = displacement ÷ time (vector, so direction matters).</p>
+  <div class="note"><b>Worked example.</b> A car travels 120 km in 2 hours. Speed = 120 ÷ 2 = <b>60 km/h</b>. If it drove east the whole way, its velocity is 60 km/h east.</div>
+  <div class="note"><b>Worked example 2.</b> A cyclist rides 3 km west, then 3 km east in 30 minutes total. Speed = 6 km ÷ 0.5 h = 12 km/h. Displacement = 0, so average velocity = 0.</div>
+  <h3>Calculator</h3>
+  <div class="row">
+    <div><label for="cd">Distance (m)</label><input id="cd" class="num" type="number" value="100"></div>
+    <div><label for="ct">Time (s)</label><input id="ct" class="num" type="number" value="5"></div>
+    <div class="big" id="cres">20 m/s</div>
+  </div>
+  <h3>Practice</h3><div id="sv"></div>
+</section>
+
+<section class="s3" id="p3">
+  <h2>3. Graphing motion</h2>
+  <p>On a distance-time graph, a straight sloped line means uniform velocity. A steeper line means faster. A flat line means not moving. A curve that bends up means speeding up.</p>
+  <div class="row">
+    <div style="flex:1;min-width:180px"><label for="gt">Type of motion</label>
+      <select id="gt"><option value="u">Uniform (constant speed)</option><option value="a">Accelerating</option><option value="s">Stationary</option></select></div>
+    <div style="flex:1;min-width:180px"><label for="gv">Speed or acceleration: <span id="gvv">10</span></label><input id="gv" type="range" min="1" max="10" value="5"></div>
+  </div>
+  <svg id="graph" viewBox="0 0 440 300" role="img" aria-label="Distance-time graph"></svg>
+  <p id="gread" class="note"></p>
+  <h3>Practice</h3><div id="gr"></div>
+</section>
+
+<section class="s4" id="p4">
+  <h2>4. Identifying and controlling variables</h2>
+  <p><b>Independent:</b> what you change. <b>Dependent:</b> what you measure. <b>Controlled:</b> what you keep the same so the test is fair.</p>
+  <div class="note"><b>Example.</b> Ramp height (10, 20, 30 cm) changes a toy car's speed. Independent: ramp height. Dependent: speed (stopwatch). Controlled: same car, same surface, same starting point.</div>
+  <div id="vr"></div>
+</section>
+
+<section class="s5" id="p5">
+  <h2>5. Check yourself</h2><div id="quiz"></div>
+</section>
+
+<section class="s5" id="act">
+  <h2>6. Activity: measure your own walking speed</h2>
+  <p>Mark a straight path (for example 10 m) in the room or hallway. Walk it at a steady pace while a classmate times you. Do it twice, once each direction.</p>
+  <div class="grid">
+    <div><label for="ad">Path length (m)</label><input id="ad" type="number" min="0" step="any"></div>
+    <div><label for="at1">Time, trial 1 east (s)</label><input id="at1" type="number" min="0" step="any"></div>
+    <div><label for="at2">Time, trial 2 west (s)</label><input id="at2" type="number" min="0" step="any"></div>
+  </div>
+  <p class="note" id="ares">Enter your numbers to see your speed.</p>
+  <label for="aiv">Independent variable you could change to make your walk faster or slower:</label>
+  <input id="aiv" type="text">
+  <label for="acv" style="display:block;margin-top:8px">Two controlled variables you would keep the same:</label>
+  <input id="acv" type="text">
+  <label for="refl" style="display:block;margin-top:8px">Reflection: in your own words, how are speed and velocity different? Give one example from your day.</label>
+  <textarea id="refl"></textarea>
+</section>
+
+<section id="send">
+  <h2>Submit your work</h2>
+  <button id="submit">Submit to teacher</button>
+  <p id="status" role="status"></p>
+</section>
+</main>
+
+<script>
+// Paste your deployed Google Apps Script web app URL here (see Code.gs).
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRPonvAxYk3Pakll53Ytz1EF2Uc3hTQjMcd0vUVEY73znY6T5sntyCmmJrPV8fyXrQ/exec";
+
+const $ = id => document.getElementById(id);
+const answers = {};
+
+/* ---------- question bank ---------- */
+const BANK = {
+dd:[
+ {t:"A person walks 4 km east to the park, then 4 km west back home. What is the displacement?",o:["0 km","8 km","4 km east"],a:0,w:"They end where they started, so displacement is 0."},
+ {t:"For the same walk, what is the total distance in km?",n:8,w:"4 + 4 = 8 km."},
+ {t:"A runner jogs 5 km east. What is the displacement?",o:["5 km west","5 km east","0 km"],a:1,w:"One straight path east: displacement equals distance with a direction."},
+ {t:"A cyclist rides 3 km west, then 2 km east. What is the displacement?",o:["5 km west","1 km west","1 km east","5 km east"],a:1,w:"3 west minus 2 east leaves 1 km west."},
+ {t:"For the cyclist, what is the total distance in km?",n:5,w:"3 + 2 = 5 km. Distance ignores direction."},
+ {t:"A student walks 2 km north to school. Which statement is true?",o:["Distance is 2 km, displacement is 2 km north","Distance is 0, displacement is 2 km","Distance is 2 km north, displacement is 2 km"],a:0,w:"Distance has no direction; displacement does."}
+],
+sv:[
+ {t:"\"A bus moves at 60 km/h south.\" Is this speed or velocity?",o:["Speed","Velocity"],a:1,w:"It gives a direction (south)."},
+ {t:"\"A cyclist travels at 15 km/h.\" Is this speed or velocity?",o:["Speed","Velocity"],a:0,w:"No direction is given."},
+ {t:"Which of these is a vector?",o:["distance","speed","velocity","time"],a:2,w:"Velocity has magnitude and direction."},
+ {t:"A car travels 120 km in 2 hours. What is its average speed in km/h?",n:60,w:"120 ÷ 2 = 60."},
+ {t:"A motorcycle travels 100 m in 5 s heading east. What is its speed in m/s?",n:20,w:"100 ÷ 5 = 20 m/s."},
+ {t:"The motorcycle then returns to its start in 5 more seconds. What is its displacement for the whole trip, in m?",n:0,w:"It ended at its starting point."},
+ {t:"A train travels 300 km in 4 hours. What is its speed in km/h?",n:75,w:"300 ÷ 4 = 75."}
+],
+gr:[
+ {t:"A toy car moves 10 m every second in a straight line. How far does it travel in 6 s (m)?",n:60,w:"10 × 6 = 60 m."},
+ {t:"A straight, sloped line on a distance-time graph means:",o:["Not moving","Uniform velocity","Speeding up"],a:1,w:"Constant slope means constant velocity."},
+ {t:"A flat horizontal line on a distance-time graph means:",o:["Stationary","Very fast","Accelerating"],a:0,w:"Distance is not changing."},
+ {t:"A line that curves upward and gets steeper means:",o:["Stationary","Uniform velocity","Accelerating"],a:2,w:"The slope (speed) keeps increasing."},
+ {t:"Graph A has a steeper line than Graph B. Which object is faster?",o:["A","B","Same speed"],a:0,w:"Steeper slope means higher speed."},
+ {t:"A graph rises from 0 m at 0 s to 100 m at 10 s. What is the speed in m/s?",n:10,w:"100 ÷ 10 = 10 m/s."}
+],
+vr:[
+ {t:"A student tests how the amount of water affects a plant's height. Same soil, pot, and sunlight. What is the independent variable?",o:["Plant height","Amount of water","Soil"],a:1,w:"It is the factor the student changes."},
+ {t:"In that investigation, what is the dependent variable?",o:["Plant height","Amount of water","Pot size"],a:0,w:"It is the factor that is measured."},
+ {t:"Which is a controlled variable in the ramp investigation?",o:["Ramp height","Car's speed","Same toy car"],a:2,w:"Keeping the same car makes the test fair."},
+ {t:"Why do scientists keep controlled variables the same?",o:["To make the test fair and the results reliable","To make the test longer","To change more things at once"],a:0,w:"Then only the independent variable can explain the result."},
+ {t:"A student tests whether the surface (carpet, wood, tile) changes how far a ball rolls. Name the dependent variable.",o:["Surface type","Distance the ball rolls","Same ball"],a:1,w:"Distance rolled is what is measured."}
+],
+quiz:[
+ {t:"Which quantity is a scalar?",o:["Displacement","Velocity","Speed"],a:2,w:"Speed has magnitude only."},
+ {t:"A hiker walks 3 km north, then 3 km south. What is the displacement (km)?",n:0,w:"She is back at the start."},
+ {t:"A runner covers 400 m in 50 s. What is the speed in m/s?",n:8,w:"400 ÷ 50 = 8."},
+ {t:"Which statement describes velocity?",o:["20 m/s","20 m/s north","20 m"],a:1,w:"Velocity needs magnitude and direction."},
+ {t:"On a distance-time graph, a steeper line means:",o:["Slower speed","Faster speed","No motion"],a:1,w:"Slope represents speed."},
+ {t:"In an investigation, the factor you change on purpose is the:",o:["Dependent variable","Controlled variable","Independent variable"],a:2,w:"You change it to see the effect."}
+]};
+
+/* ---------- question renderer ---------- */
+function render(key){
+  const box=$(key);
+  BANK[key].forEach((it,i)=>{
+    const id=key+(i+1), d=document.createElement("div");
+    d.className="q";
+    d.innerHTML=`<div>${i+1}. ${it.t}</div><span class="fb" id="fb-${id}" aria-live="polite"></span>`;
+    const fb=d.querySelector(".fb");
+    const done=(ok,val)=>{
+      answers[id]={answer:val,correct:ok};
+      fb.className="fb "+(ok?"ok":"no");
+      fb.textContent=(ok?"Correct. ":"Not quite. ")+it.w;
+    };
+    if(it.o){
+      const wrap=document.createElement("div");
+      it.o.forEach((txt,k)=>{
+        const b=document.createElement("button");
+        b.className="opt";b.textContent=txt;
+        b.onclick=()=>{
+          wrap.querySelectorAll("button").forEach(x=>x.className="opt");
+          const ok=k===it.a;b.classList.add(ok?"right":"wrong");done(ok,txt);
+        };
+        wrap.appendChild(b);
+      });
+      d.insertBefore(wrap,fb);
+    }else{
+      const inp=document.createElement("input");inp.type="number";inp.step="any";inp.className="num";
+      inp.setAttribute("aria-label","Answer to question "+(i+1));
+      const b=document.createElement("button");b.textContent="Check";
+      b.onclick=()=>{ if(inp.value==="")return; done(Math.abs(+inp.value-it.n)<1e-6,inp.value); };
+      d.insertBefore(inp,fb);d.insertBefore(b,fb);
+    }
+    box.appendChild(d);
+  });
+}
+Object.keys(BANK).forEach(render);
+
+/* ---------- 1. walker ---------- */
+function walker(){
+  const o=+$("out").value;
+  $("back").max=o; if(+$("back").value>o)$("back").value=o;
+  const b=+$("back").value, net=o-b;
+  $("outv").textContent=o;$("backv").textContent=b;
+  const x=v=>20+v*40;
+  $("dot").setAttribute("cx",x(net));
+  $("pathl").setAttribute("x2",x(o));
+  $("dist").textContent=(o+b)+" km";
+  $("disp").textContent=net===0?"0 km":net+" km east";
+}
+$("out").oninput=$("back").oninput=walker;walker();
+
+/* ---------- 2. calculator ---------- */
+function calc(){
+  const d=+$("cd").value,t=+$("ct").value;
+  $("cres").textContent=t>0?(Math.round(d/t*100)/100)+" m/s":"Time must be above 0";
+}
+$("cd").oninput=$("ct").oninput=calc;calc();
+
+/* ---------- 3. graph ---------- */
+function graph(){
+  const type=$("gt").value,v=+$("gv").value;
+  $("gvv").textContent=v;
+  const X=t=>50+t*38,Y=d=>260-d*2.4;
+  let s=`<line x1="50" y1="260" x2="430" y2="260" stroke="#12355b" stroke-width="2"/><line x1="50" y1="260" x2="50" y2="20" stroke="#12355b" stroke-width="2"/>`;
+  for(let t=0;t<=10;t+=2)s+=`<text x="${X(t)-4}" y="278" font-size="12">${t}</text>`;
+  for(let d=0;d<=100;d+=20)s+=`<text x="22" y="${Y(d)+4}" font-size="12">${d}</text><line x1="50" x2="430" y1="${Y(d)}" y2="${Y(d)}" stroke="#e1eaf3"/>`;
+  s+=`<text x="215" y="296" font-size="13">Time (s)</text><text x="4" y="14" font-size="13">Distance (m)</text>`;
+  const f=t=>type==="u"?v*t:type==="a"?0.5*(v/2)*t*t:30;
+  let pts="";for(let t=0;t<=10;t+=.25){const d=Math.min(f(t),100);pts+=`${X(t)},${Y(d)} `;}
+  s+=`<polyline fill="none" stroke="#2b8be0" stroke-width="4" points="${pts}"/>`;
+  $("graph").innerHTML=s;
+  $("gread").textContent=type==="u"?`Straight line: the speed is constant at ${v} m/s (distance ÷ time). Distance after 10 s: ${Math.min(v*10,100)} m.`
+    :type==="a"?"Curved line: the slope keeps increasing, so the object is speeding up.":"Flat line: the object stays 30 m from the start and is not moving.";
+}
+$("gt").onchange=$("gv").oninput=graph;graph();
+
+/* ---------- 6. activity ---------- */
+function act(){
+  const d=+$("ad").value,t1=+$("at1").value,t2=+$("at2").value;
+  if(d>0&&t1>0&&t2>0){
+    const s1=d/t1,s2=d/t2,avg=2*d/(t1+t2);
+    $("ares").innerHTML=`East: ${s1.toFixed(2)} m/s. West: ${s2.toFixed(2)} m/s. Average speed: ${avg.toFixed(2)} m/s. After both trials your displacement is 0 m, so your average velocity is 0 m/s.`;
+  }
+}
+["ad","at1","at2"].forEach(i=>$(i).oninput=act);
+
+/* ---------- submit ---------- */
+$("date").value=new Date().toISOString().slice(0,10);
+$("submit").onclick=async()=>{
+  const st=$("status");
+  if(!$("name").value.trim()||!$("sec").value.trim()){st.textContent="Enter your name and section at the top first.";$("name").focus();return;}
+  const keys=Object.keys(BANK).flatMap(k=>BANK[k].map((_,i)=>k+(i+1)));
+  const correct=keys.filter(k=>answers[k]&&answers[k].correct).length;
+  const payload={
+    timestamp:new Date().toISOString(),name:$("name").value.trim(),section:$("sec").value.trim(),date:$("date").value,
+    score:correct,total:keys.length,answered:keys.filter(k=>answers[k]).length,answers,
+    activity:{distance_m:$("ad").value,time_east_s:$("at1").value,time_west_s:$("at2").value,independent:$("aiv").value,controlled:$("acv").value},
+    reflection:$("refl").value
+  };
+  if(SCRIPT_URL.startsWith("PASTE")){st.textContent="The teacher has not connected the Google Sheet yet. Your score is "+correct+" of "+keys.length+".";return;}
+  st.textContent="Sending…";$("submit").disabled=true;
+  try{
+    await fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+    st.textContent="Submitted. You answered "+payload.answered+" items and got "+correct+" of "+keys.length+" correct.";
+  }catch(e){st.textContent="Could not send. Check your internet connection and press Submit again.";}
+  $("submit").disabled=false;
+};
+</script>
+</body>
+</html>
